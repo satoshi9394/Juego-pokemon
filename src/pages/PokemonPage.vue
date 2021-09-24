@@ -15,7 +15,7 @@
       :pokemons="pokemonArr"
       @selection="checkAnswer"
     />
-    <div 
+    <template 
       v-if="showAnswer"
       class="fade-in" 
     >
@@ -25,7 +25,7 @@
       <button @click="newGame">
         Nuevo Juego
       </button>
-    </div>
+    </template>
   </div>
 </template>
 
