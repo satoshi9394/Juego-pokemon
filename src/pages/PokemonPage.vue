@@ -1,6 +1,9 @@
 <template>
-  <Loader v-if="!pokemon" />
-  <div v-else>
+  <Loader v-if="loader" />
+  <div 
+    v-else
+    class="fade-in"  
+  >
     <h1>
       Quien es este pokemon?
     </h1>
@@ -8,7 +11,21 @@
       :pokemonId="pokemon.id"
       :showPokemon="showPokemon"
     />
-    <PokemonOptions :pokemons="pokemonArr" />
+    <PokemonOptions 
+      :pokemons="pokemonArr"
+      @selection="checkAnswer"
+    />
+    <div 
+      v-if="showAnswer"
+      class="fade-in" 
+    >
+      <h2>
+        {{ message }}
+      </h2>
+      <button @click="newGame">
+        Nuevo Juego
+      </button>
+    </div>
   </div>
 </template>
 
@@ -29,17 +46,41 @@ export default {
     return {
       pokemonArr: [],
       pokemon: null,
-      showPokemon: false
+      showPokemon: false,
+      loader: true,
+      showAnswer: false,
+      message: ''
     }
   },
-  mounted() {
-    this.mixPokemonArray()
+  async mounted() {
+    await this.mixPokemonArray()
+    this.hasPokemons()
   },
   methods: {
     async mixPokemonArray() {
       this.pokemonArr = await getPokemonOptions();
       const rndInt = Math.floor( Math.random() * 4);
       this.pokemon =  this.pokemonArr[rndInt];
+    },
+    hasPokemons() {
+      if(this.pokemon) {
+        setTimeout(() => {
+          this.loader = false
+        }, 2000)
+      }
+    },
+    checkAnswer(selectedId) {
+      this.showPokemon = true;
+      this.showAnswer = true;
+      const { id, name } = this.pokemon;
+      const gotItRight = selectedId === id
+      this.message = gotItRight ? `Correcto, ${name}` : `Oops, era ${name}`
+    },
+    async newGame() {
+      this.loader =  true;
+      this.showPokemon = false;
+      await this.mixPokemonArray()
+      this.hasPokemons()
     }
   }
 
