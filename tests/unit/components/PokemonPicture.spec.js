@@ -25,6 +25,7 @@ describe('PokemonPicture component', () => {
     expect(imgs[0].exists()).toBeTruthy();
     expect(imgs[1]).toBe(undefined);
     expect(imgs[0].classes('hidden-pokemon')).toBeTruthy();
+    expect(imgs[0].attributes('src')).toBe('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/100.svg');
 
   });
 
