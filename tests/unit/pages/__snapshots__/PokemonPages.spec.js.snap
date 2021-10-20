@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`vista de PokemonPages debe de hacer match con el shapshot  1`] = `<loader-stub></loader-stub>`;
+
+exports[`vista de PokemonPages debe de hacer match con el snapshot cuando carga los pokemons 1`] = `
+<div class="fade-in">
+  <h1> Quien es este pokemon? </h1>
+  <pokemon-picture-stub pokemonid="1" showpokemon="false"></pokemon-picture-stub>
+  <pokemon-options-stub pokemons="[object Object],[object Object],[object Object],[object Object]"></pokemon-options-stub>
+  <!--v-if-->
+</div>
+`;
