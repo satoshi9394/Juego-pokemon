@@ -58,4 +58,27 @@ describe('vista de PokemonPages', () => {
     expect(PokemonPictureBox.attributes('pokemonid')).toBe('1');
     expect(PokemonOptionsBox.attributes('pokemons')).toBeTruthy();
   });
+
+  test('Prueba de respuesta a la pregunta del componente ', async() => {
+    const wrapper = shallowMount( PokemonPages, {
+      data() {
+        return {
+          pokemonArr: pokemons,
+          pokemon: pokemons[0],
+          showPokemon: false,
+          loader: false,
+          showAnswer: false,
+          message: ''
+        }
+      }
+    });
+    await wrapper.vm.checkAnswer(1);
+    expect(wrapper.find('h2').exists()).toBeTruthy();
+    expect(wrapper.vm.showPokemon).toBeTruthy();
+    expect(wrapper.find('h2').text()).toBe(`Correcto, ${pokemons[0].name}`);
+
+    await wrapper.vm.checkAnswer(2);
+    expect(wrapper.find('h2').text()).toBe(`Oops, era ${pokemons[0].name}`);
+  })
+  
 });
